@@ -42,32 +42,27 @@ users = {
     "owner": "owner",
     "n3tu": "n3tu",
     "": "",
-    # Add more users here as needed
+
 }
 
 def authenticate():
-    # Textul de bun venit cu o culoare specifică
+
     print(f"{Colors.green}Welcome! Please log in.{Colors.reset}\n")
     
-    # Cererea pentru numele de utilizator
     username = input(f"{Colors.red}  Enter username: {Colors.reset}")
     
-    # Cererea pentru parolă
     password = input(f"{Colors.red}  Enter password: {Colors.reset}")
 
-    # Check if the username exists and the password matches
     if username in users and users[username] == password:
         print("Access granted. Welcome, " + username + "!")
-        main_function()  # Continue with the main part of your program
+        main_function()
     else:
         print("Access denied. Invalid username or password.")
-        exit()  # Terminate the program if authentication fails
+        exit()
 
 def main_function():
-    # Your main code here
     print("This is the main part of your application.")
 
-# Run the authentication function when the script is executed
 if __name__ == "__main__":
     authenticate()
 
@@ -84,10 +79,10 @@ output_lock = Lock()
 
 
 db_config = {
-    'host': 'mysql.db.bot-hosting.net',
-    'user': 'u205258_r1rOZfUfUX',
-    'password': 'n!JaBs.@59I4r^V+2C6OWIfi',
-    'database': 's205258_idk',  # Numele bazei de date
+    'host': 'USE_YOUR_OWN',
+    'user': '______',
+    'password': '______',
+    'database': '_______', 
     'port': 3306,
 }
 
@@ -139,10 +134,9 @@ def add_mac_to_database(token, user_mac):
 
 
 def check_token(token):
-    # Check if the token is "root"
     if token == "root":
         print("Access granted: You have root privileges.")
-        return True  # or any other behavior you'd like for root access
+        return True  
     else:
         print("Access denied: Invalid token.")
         return False
@@ -185,7 +179,7 @@ def display_live_counter():
 
     return counter_info
 
-# Function to remove duplicate files
+
 remaining_count = 0
 total_files = 0
 
@@ -207,25 +201,24 @@ def remove_duplicates(folder_path):
 
     for filename in os.listdir(folder_path):
         if filename.endswith('.txt'):
-            total_files += 1  # Increment total_files counter
+            total_files += 1  
 
     for filename in os.listdir(folder_path):
         if filename.endswith('.txt'):
             file_path = os.path.join(folder_path, filename)
             file_hash = hash_file(file_path)
 
-            # If the file's hash already exists, it's a duplicate
             if file_hash in file_hashes:
                 os.remove(file_path)
                 deleted_cookies_count += 1
-                total_files -= 1  # Decrement total_files counter for each duplicate removed
+                total_files -= 1  
             else:
                 file_hashes.add(file_hash)
 
     print(f"Deleted {deleted_cookies_count} duplicate cookies.")
     print(f"Total cookies: {total_files}")
 
-# Function to get number of threads
+
 def get_num_threads():
     while True:
         print("Choose the speed:")
@@ -268,11 +261,9 @@ def select_logs_folder():
 def find_and_copy_cookies(root_folder):
     print("Searching for cookies, please wait...")
 
-    # Set output paths directly to "Netflix" and "Spotify" folders
     netflix_output_path = "netflix"
     spotify_output_path = "spotify"
 
-    # Ensure output directories exist
     if not os.path.exists(netflix_output_path):
         os.makedirs(netflix_output_path)
 
@@ -285,7 +276,7 @@ def find_and_copy_cookies(root_folder):
     total_netflix_cookies = 0
     total_spotify_cookies = 0
 
-    # Walk through the root folder to find and process cookies
+
     for folder_path, _, _ in os.walk(root_folder):
         cookies_folder = os.path.join(folder_path, 'spotify2')
 
@@ -330,9 +321,8 @@ def extract_cookies(lines):
 
     return netflix_cookies, spotify_cookies
 
-# Placeholder for the parse_cookie_line function
+
 def parse_cookie_line(line):
-    # Dummy implementation; replace with actual parsing logic
     class Cookie:
         domain = ''
     cookie = Cookie()
@@ -388,10 +378,8 @@ async def check_netflix(path):
                 if response.url.path == '/account':
                     html = await response.text()
 
-                    # Parse the HTML using BeautifulSoup
                     soup = BeautifulSoup(html, 'lxml')
 
-                    # Find the plan information
                     plan_tag = soup.find('h3', {'data-uia': 'account-overview-page+membership-card+title'})
                     if plan_tag:
                         plan_text = plan_tag.get_text(separator=" ", strip=True)
@@ -514,7 +502,6 @@ Payment Method: {result['payment_method']}
         sys.stdout.flush()
         display_live_counter()
 
-# Function to check Spotify cookies
 async def check_spotify(path):
     cookies = {}
     lines = []
@@ -613,7 +600,6 @@ BLACK TOOL | https://discord.gg/QJseHtGK3x
         display_live_counter()
 
         
-# Function to start Spotify cookie checking automatically
 def start_spotify_checker():
     cookies_folder = "cookies"
     if not os.path.exists(cookies_folder):
@@ -625,7 +611,6 @@ def start_spotify_checker():
         if file_name.endswith('.txt'):
             process_spotify_file(file_path)
 
-# Example call to start the Spotify checker
 if __name__ == "__main__":
     start_spotify_checker()
 
